@@ -1,0 +1,207 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="Хранилище BeautySal2Model" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="ID_Bookings" />
+          </Key>
+          <Property Name="ID_Bookings" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Client_ID" Type="int" Nullable="false" />
+          <Property Name="Servicess_ID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ID_Clients" />
+          </Key>
+          <Property Name="ID_Clients" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ClientsName" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ClientsSurname" Type="varchar" MaxLength="30" Nullable="false" />
+          <Property Name="ClientsAddress" Type="varchar" MaxLength="100" Nullable="false" />
+          <Property Name="PhoneNumber" Type="varchar" MaxLength="15" Nullable="false" />
+          <Property Name="Email" Type="varchar" MaxLength="30" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Servicess">
+          <Key>
+            <PropertyRef Name="ID_Servicess" />
+          </Key>
+          <Property Name="ID_Servicess" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Duration" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__Bookings__Client__4D94879B">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ID_Clients" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookings__Servic__4E88ABD4">
+          <End Role="Servicess" Type="Self.Servicess" Multiplicity="1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicess">
+              <PropertyRef Name="ID_Servicess" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="Servicess_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище BeautySal2ModelContainer">
+          <EntitySet Name="Bookings" EntityType="Self.Bookings" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Servicess" EntityType="Self.Servicess" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__Bookings__Client__4D94879B" Association="Self.FK__Bookings__Client__4D94879B">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookings__Servic__4E88ABD4" Association="Self.FK__Bookings__Servic__4E88ABD4">
+            <End Role="Servicess" EntitySet="Servicess" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="BeautySal2Model" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Bookings">
+          <Key>
+            <PropertyRef Name="ID_Bookings" />
+          </Key>
+          <Property Name="ID_Bookings" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Client_ID" Type="Int32" Nullable="false" />
+          <Property Name="Servicess_ID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Clients" Relationship="Self.FK__Bookings__Client__4D94879B" FromRole="Bookings" ToRole="Clients" />
+          <NavigationProperty Name="Servicess" Relationship="Self.FK__Bookings__Servic__4E88ABD4" FromRole="Bookings" ToRole="Servicess" />
+        </EntityType>
+        <EntityType Name="Clients">
+          <Key>
+            <PropertyRef Name="ID_Clients" />
+          </Key>
+          <Property Name="ID_Clients" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ClientsName" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientsSurname" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="ClientsAddress" Type="String" MaxLength="100" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="PhoneNumber" Type="String" MaxLength="15" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="30" FixedLength="false" Unicode="false" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__Client__4D94879B" FromRole="Clients" ToRole="Bookings" />
+        </EntityType>
+        <EntityType Name="Servicess">
+          <Key>
+            <PropertyRef Name="ID_Servicess" />
+          </Key>
+          <Property Name="ID_Servicess" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="Duration" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Bookings" Relationship="Self.FK__Bookings__Servic__4E88ABD4" FromRole="Servicess" ToRole="Bookings" />
+        </EntityType>
+        <Association Name="FK__Bookings__Client__4D94879B">
+          <End Role="Clients" Type="Self.Clients" Multiplicity="1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Clients">
+              <PropertyRef Name="ID_Clients" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="Client_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Bookings__Servic__4E88ABD4">
+          <End Role="Servicess" Type="Self.Servicess" Multiplicity="1" />
+          <End Role="Bookings" Type="Self.Bookings" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Servicess">
+              <PropertyRef Name="ID_Servicess" />
+            </Principal>
+            <Dependent Role="Bookings">
+              <PropertyRef Name="Servicess_ID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="BeautySalEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Bookings" EntityType="Self.Bookings" />
+          <EntitySet Name="Clients" EntityType="Self.Clients" />
+          <EntitySet Name="Servicess" EntityType="Self.Servicess" />
+          <AssociationSet Name="FK__Bookings__Client__4D94879B" Association="Self.FK__Bookings__Client__4D94879B">
+            <End Role="Clients" EntitySet="Clients" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Bookings__Servic__4E88ABD4" Association="Self.FK__Bookings__Servic__4E88ABD4">
+            <End Role="Servicess" EntitySet="Servicess" />
+            <End Role="Bookings" EntitySet="Bookings" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище BeautySal2ModelContainer" CdmEntityContainer="BeautySalEntities">
+          <EntitySetMapping Name="Bookings">
+            <EntityTypeMapping TypeName="BeautySal2Model.Bookings">
+              <MappingFragment StoreEntitySet="Bookings">
+                <ScalarProperty Name="ID_Bookings" ColumnName="ID_Bookings" />
+                <ScalarProperty Name="Client_ID" ColumnName="Client_ID" />
+                <ScalarProperty Name="Servicess_ID" ColumnName="Servicess_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Clients">
+            <EntityTypeMapping TypeName="BeautySal2Model.Clients">
+              <MappingFragment StoreEntitySet="Clients">
+                <ScalarProperty Name="ID_Clients" ColumnName="ID_Clients" />
+                <ScalarProperty Name="ClientsName" ColumnName="ClientsName" />
+                <ScalarProperty Name="ClientsSurname" ColumnName="ClientsSurname" />
+                <ScalarProperty Name="ClientsAddress" ColumnName="ClientsAddress" />
+                <ScalarProperty Name="PhoneNumber" ColumnName="PhoneNumber" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Servicess">
+            <EntityTypeMapping TypeName="BeautySal2Model.Servicess">
+              <MappingFragment StoreEntitySet="Servicess">
+                <ScalarProperty Name="ID_Servicess" ColumnName="ID_Servicess" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Duration" ColumnName="Duration" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
